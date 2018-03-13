@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="src/css/main.css">
+     <script src="src/js/react.min.js"></script>
+     <script src="src/js/react-dom.min.js"></script>
+     <script src="src/js/browser.min.js"></script>
+</head>
+
+<body>
+    
+    <div id="example"></div>
+    
+    <script type="text/babel">
+
+//     var CheckBox = React.createClass({
+//         
+//         
+//         getInitialState: function(){
+//         return {checked: true}
+//     },
+//         
+//         handleChecked: function(){
+//             this.setState({checked: !this.state.checked})
+//         },
+//                                      
+//        render: function(){
+//            var msg;
+//            if(this.state.checked){
+//                msg = 'checked'
+//            } else{
+//                msg = 'unchecked'
+//            }
+//            return(
+//                <div>
+//                    <input type="checkbox" onChange={this.handleChecked} defaultChecked={this.state.checked}/>
+//                    <h3>Checkobox is {msg}</h3>
+//                </div>
+//            );
+//        } 
+//     }); 
+//
+//
+//
+//ReactDOM.render(<CheckBox />, document.getElementById('example'))
+//
+
+
+
+
+    var Comment = React.createClass({
+        getInitialState: function(){
+          return {editing: false}  
+        },
+        edit: function(){
+            this.setState({editing: true});
+        },
+        remove: function(){
+            console.log('Removing comment');
+            this.props.deleteFromBoard(this.props.index);
+        },
+        save: function(){
+            var val = this.refs.newText.value;
+            this.props.updateCommentText(this.refs.newText.value, this.props.index);
+            this.setState({editing: false});
+        },
+        
+        renderNormal: function(){
+            return(
+                <div className="commentContainer">
+                    <div className="commentText">{this.props.children}</div>
+                    <button onClick={this.edit} className="button-primary">Edit</button>
+                    <button onClick={this.remove}  className="button-danger">Remove</button>
+                </div>
+            );
+        },
+        
+                renderForm: function(){
+            return(
+                <div className="commentContainer">
+                    <textarea ref="newText" defaultValue={this.props.children}></textarea>
+                    <button onClick={this.save} className="button-success">Save</button>
+                    
+                </div>
+            );
+        },
+        
+        
+        
+        
+        render: function(){
+            if(this.state.editing){
+                return this.renderForm();
+            } else{
+               return this.renderNormal(); 
+            }
+        }
+    });
+
+    
+    var Board = React.createClass({
+       
+        getInitialState: function(){
+            return {
+                comments: []
+            }
+        },
+        
+        add: function(text){
+            var arr = this.state.comments;
+            arr.push(text);
+            this.setState({comments: arr});
+        },
+        
+        removeComment: function(i){
+            console.log('Removing comment: '+i);
+            var arr = this.state.comments;
+            arr.splice(i,1);
+            this.setState({comments: arr});
+        },
+        
+        updateComment: function(newText, i){
+          console.log('Updating comment');
+            var arr = this.state.comments;
+            arr[i] = newText;
+            this.setState({comments: arr});
+        },
+        
+        eachComment: function(text, i){
+                 return (
+                     <Comment key={i} index={i} updateCommentText={this.updateComment} deleteFromBoard={this.removeComment}>
+                     {text}
+                     </Comment>);  
+               },
+        
+        
+        render: function(){
+            return (
+     <div>
+            <button onClick={this.add.bind(null, 'Default')} className="button-info create">Add new</button>
+             <div className="board">
+          {this.state.comments.map(this.eachComment)}
+        </div>
+     </div>
+            );
+        }
+    });
+
+    ReactDOM.render(<Board />
+   ,document.getElementById('example'));
+
+
+//    var Movie = React.createClass({
+//       render: function(){
+//           return (
+//            <div>
+//                <h1>{this.props.title}</h1>
+//                <h2>{this.props.genre}</h2>
+//            </div>
+//           );
+//       } 
+//    });
+//
+//
+//    ReactDOM.render(<div>
+//        <Movie title="Avatar" genre="action"/>
+//        <Movie title="The NoteBook" genre="romance"/>
+//        <Movie title="Capitan America" genre="action"/>
+//    </div>, document.getElementById('example'));
+
+
+
+//    var Bacon = React.createClass({
+//        render: function (){
+//            return (
+//                <div>
+//                    <h3>Bacon Component</h3>
+//                    <p>I am some sample text</p>
+//                </div>
+//            );
+//        }
+//    });
+//        
+//    ReactDOM.render(<div>
+//        <Bacon />
+//        <Bacon />
+//        <Bacon />
+//    </div>, document.getElementById('example'));
+//
+
+
+    </script>
+
+
+</body>
+
+</html>
