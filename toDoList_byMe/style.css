@@ -1,0 +1,61 @@
+body{
+    max-width: 100%;
+    margin:auto;
+}
+.main{
+    height: 100vh;
+    background-image: url(calendar-checklist-list-3243.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    padding: 5% 0;
+    align-items: center;
+}
+label{
+    font-size: 1.5em;
+    letter-spacing: 2px;
+    color: rgba(13,13,13, 0.6);
+}
+input{
+    outline: none;
+    padding: 1vh;
+    background-color: honeydew;
+    color: black;
+    font-size: 1.3em;
+    box-shadow: 2px 5px 6px 2px black;
+    border: 1px solid honeydew;
+    border-radius: 3px;
+}
+input:focus{
+    background-color: darkslategray;
+    color: white;
+}
+ul{
+    list-style-type: none;
+}
+#btn, .remove{
+    margin: 10px;
+    padding: 10px;
+    background-color: honeydew;
+    border: 1px solid honeydew;
+    border-radius: 10px;
+    font-size: 1.2em;
+    box-shadow: 2px 3px 3px 1px black;
+    outline: none;
+    cursor: pointer;
+}
+#btn:hover, .remove:hover{
+    color: honeydew;
+    background-color: black;
+    transition: .6s;
+    border: 1px solid black;
+}
+li{
+    font-size: 1.4em;
+    color: #333;
+}
+.remove{
+    font-size: .7em;
+    margin: 10px 0;
+}
+
